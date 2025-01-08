@@ -7,6 +7,18 @@ public class PlayerMovment : MonoBehaviour
 {
     private Rigidbody2D physicsBody = null;
 
+    [SerializeField]
+    private float speed = 4f;
+
+    [SerializeField]
+    private float jumpSpeed = 100f;
+
+    [SerializeField]
+    public Collider2D groundSensor = null;
+
+    [SerializeField]
+    public LayerMask groundLayer = 0;
+
     private void Awake()
     {
         physicsBody = GetComponent<Rigidbody2D>();
@@ -16,15 +28,26 @@ public class PlayerMovment : MonoBehaviour
     {
         Vector2 newVelocity = physicsBody.velocity;
 
-        newVelocity.x = -1;
+        newVelocity.x = -speed;
         physicsBody.velocity = newVelocity;
     }
 
     public void MoveRight()
     {
         Vector2 newVelocity = physicsBody.velocity;
-        newVelocity.x = 1;
+        newVelocity.x = speed;
         physicsBody.velocity = newVelocity;
+    }
+
+    public void Jump()
+    {
+        if (groundSensor.IsTouchingLayers(groundLayer))
+        {
+            Vector2 newVelocity = physicsBody.velocity;
+
+            newVelocity.y = jumpSpeed;
+            physicsBody.velocity = newVelocity;
+        }
     }
 
     // Start is called before the first frame update
