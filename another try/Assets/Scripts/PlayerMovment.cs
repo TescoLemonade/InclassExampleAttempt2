@@ -19,9 +19,19 @@ public class PlayerMovment : MonoBehaviour
     [SerializeField]
     public LayerMask groundLayer = 0;
 
+    [SerializeField]
+    private Joystick jStick = null;
     private void Awake()
     {
         physicsBody = GetComponent<Rigidbody2D>();
+    }
+
+    private void FixedUpdate()
+    {
+        Vector2 newVelocity = physicsBody.velocity;
+
+        newVelocity.x = speed * jStick.Horizontal;
+        physicsBody.velocity = newVelocity;
     }
 
     public void MoveLeft()
