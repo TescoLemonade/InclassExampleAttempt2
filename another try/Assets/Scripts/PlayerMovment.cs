@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -69,6 +70,17 @@ public class PlayerMovment : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // get rigidbody that we need to use to find physics
+        Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
+
+        //Find the speed from the rigidbody
+        float currentSpeedH = Mathf.Abs(rigidBody.velocity.x);
+
+        // get animator component that we use and set the animation
+        Animator animator = GetComponent<Animator>();
+
+        // tell animator what the speeds are
+        animator.SetFloat("SpeedH", currentSpeedH);
+
     }
 }
