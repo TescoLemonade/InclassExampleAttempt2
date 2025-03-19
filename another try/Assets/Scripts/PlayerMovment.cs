@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayerMovment : MonoBehaviour
 {
     private Rigidbody2D physicsBody = null;
+    private SpriteRenderer sprite = null;
 
     [SerializeField]
     private float speed = 4f;
@@ -25,6 +26,7 @@ public class PlayerMovment : MonoBehaviour
     private void Awake()
     {
         physicsBody = GetComponent<Rigidbody2D>();
+        sprite = GetComponent<SpriteRenderer>();
     }
 
     private void FixedUpdate()
@@ -41,6 +43,12 @@ public class PlayerMovment : MonoBehaviour
 
         newVelocity.x = -speed;
         physicsBody.velocity = newVelocity;
+
+        if (physicsBody.velocity.x < -0.1f)
+        {
+            sprite.flipX = false;
+        }
+
     }
 
     public void MoveRight()
@@ -48,6 +56,8 @@ public class PlayerMovment : MonoBehaviour
         Vector2 newVelocity = physicsBody.velocity;
         newVelocity.x = speed;
         physicsBody.velocity = newVelocity;
+
+        
     }
 
     public void Jump()
@@ -82,5 +92,14 @@ public class PlayerMovment : MonoBehaviour
         // tell animator what the speeds are
         animator.SetFloat("SpeedH", currentSpeedH);
 
+        if (physicsBody.velocity.x < 0)
+        {
+            sprite.flipX = false;
+        }
+
+        else if (physicsBody.velocity.x > 0)
+        {
+            sprite.flipX = true;
+        }
     }
 }

@@ -8,12 +8,18 @@ public class PlayerFire : MonoBehaviour
     public GameObject projectilePrefab;
     public Vector2 projectileVelocity;
 
+    private SpriteRenderer sprite;
+
     // Start is called before the first frame update
     void Start()
     {
         
     }
 
+    private void Awake()
+    {
+        sprite = GetComponent<SpriteRenderer>();
+    }
     public void fireProjectile()
     {
         GameObject clonedProjectile;
@@ -29,6 +35,13 @@ public class PlayerFire : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (sprite.flipX == true)
+        {
+            projectileVelocity.x = 10;
+        }
+        else
+        {
+            projectileVelocity.x = -10;
+        }
     }
 }
