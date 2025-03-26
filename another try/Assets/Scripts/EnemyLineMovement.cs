@@ -14,14 +14,14 @@ public class EnemyLineMovement : MonoBehaviour
     // private variables
     // not exposed, cannot be edited in the engine
 
-    private Rigidbody2D rigidbody; //the container for the rigidbody attached to the gameObject
+    private Rigidbody2D aiRigidbody; //the container for the rigidbody attached to the gameObject
 
 
     //when the script is first loaded
     void Awake()
     {
         // get and store rigidbody
-        rigidbody = GetComponent<Rigidbody2D>();
+        aiRigidbody = GetComponent<Rigidbody2D>();
 
         //normalise the direction
         direction = direction.normalized;
@@ -32,6 +32,6 @@ public class EnemyLineMovement : MonoBehaviour
     void Update()
     {
         //move in correct direction with set force strength
-        rigidbody.AddForce(direction * forceStrength);
+        aiRigidbody.AddForce(direction * forceStrength);
     }
 }
